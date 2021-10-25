@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 40%
+        }
+
+        .main {
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 20%);
+            grid-gap: 5%;
+        }
+
+        #prod_form {
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid black;
+        }
+
+        #del_div {
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid black;
+        }
+
+
+        #edit_div {
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Add Products</h1>
+    <div id='prod_form'>
+        <input type="number" id='id' placeholder="id"><br>
+        <input type="text" id='name' placeholder="name"><br>
+        <input type="number" id='price' placeholder="price"><br>
+        <button onclick="addproduct()">Add product</button>
+    </div>
+
+    <h1>Delete Product</h1>
+
+    <div id='del_div'>
+        <input type="number" id='product_id' placeholder="id"><br>
+        <button onclick="deleteproduct()">Delete</button>
+    </div>
+
+
+    <h1>Edit Product</h1>
+
+    <div id='edit_div'>
+        <input type="number" id='product_id_edit' placeholder="id"><br>
+        <input type="text" id='name_edit' placeholder="name"><br>
+        <input type="number" id='price_edit' placeholder="price"><br>
+        <button onclick="editproduct()">Edit</button>
+    </div>
+
+
+    <div class="main">
+
+
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+    async function getdata() {
+
+        res = await fetch('http://localhost:3000/api/products')
+
+        data = await res.json()
+
+        console.log(data)
+
+
+    }
+
+    getdata()
+
+
+    async function addproduct() {
+        let data = {
+            id: document.getElementById('id').value,
+            name: document.getElementById('name').value,
+            price: document.getElementById('price').value
+        };
+
+        try {
+            let response = await fetch('http://localhost:3000/api/products', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': "application/json",
+                }
+
+            });
+            let d = await response.json();
+
+            console.log(d);
+        }
+
+        catch (err) { console.log(err) }
+
+
+
+    }
+
+
+
+    async function deleteproduct() {
+
+
+        let id = document.getElementById('product_id').value
+        let response = await fetch(`http://localhost:3000/api/products/${id}`, {
+
+            method: 'DELETE',
+
+            headers: {
+                'Content-Type': "application/json",
+            },
+
+        });
+
+    }
+
+
+    async function editproduct() {
+
+
+        var id = document.getElementById('product_id_edit').value
+
+        var data_edit = {
+            id: document.getElementById('product_id_edit').value,
+            name: document.getElementById('name_edit').value,
+            price: document.getElementById('price_edit').value
+
+        }
+
+        var data_to_edit = JSON.stringify(data_edit)
+
+
+        try {
+            let response = await fetch(`http://localhost:3000/api/products/${id}`, {
+                method: "PUT",
+                body: data_to_edit,
+                headers: {
+                    'Content-Type': "application/json",
+                }
+
+            });
+            let d = await response.json();
+
+            console.log(d);
+        }
+
+        catch (err) { console.log(err) }
+
+
+
+    }
+
+
+
+
+
+
+
+
+</script>

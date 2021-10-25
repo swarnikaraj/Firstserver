@@ -1,0 +1,35 @@
+{
+  "products": [
+    {
+      "id": 2,
+      "name": "Hamburger",
+      "price": 7,
+      "active": true
+    },
+    {
+      "id": "12",
+      "name": "dsdasd",
+      "price": "12"
+    },
+    {
+      "id": 17,
+      "name": "kitvhvnat",
+      "price": "18"
+    },
+    {
+      "id": "18",
+      "name": "food",
+      "price": "123"
+    },
+    {
+      "id": "6",
+      "name": "kitkat",
+      "price": "18"
+    },
+    {
+      "id": "3",
+      "name": "chinchan",
+      "price": "34"
+    }
+  ]
+}
