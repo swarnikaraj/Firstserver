@@ -7,16 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        div {
+
+        .main{display: flex;}
+       .main > div {
             width: 40%
         }
 
-        .main {
+         #items_div {
             margin: auto;
             display: grid;
             grid-template-columns: repeat(4, 20%);
             grid-gap: 5%;
-        }
+        } 
+
+        #items_div>div{border: 2px solid balck;}
 
         #prod_form {
             padding: 20px;
@@ -40,6 +44,10 @@
 </head>
 
 <body>
+
+    <div class='main'>
+
+     <div>
 
     <h1>Add Products</h1>
     <div id='prod_form'>
@@ -67,10 +75,27 @@
     </div>
 
 
-    <div class="main">
+    </div>   
+    
+    <div id='data_div'>
+
+
+        <h1>Items</h1>
+
+
+        <div id="items_div">
+
+         
+
+
+
+
+        </div>
 
 
     </div>
+
+</div>
 
 </body>
 
@@ -84,12 +109,48 @@
 
         data = await res.json()
 
-        console.log(data)
-
+        
+          
+        appenditem(data)
 
     }
 
     getdata()
+
+
+    var parent_div=document.getElementById('items_div')
+
+    function appenditem(data){
+
+
+        data.forEach(item => {
+
+
+    div=document.createElement('div')
+   
+    p1=document.createElement('p')
+    p1.textContent='name:'+item.name
+   
+
+    p2=document.createElement('p')
+    p2.innerHTML='price:'+item.price
+
+    p3=document.createElement('p')
+    p3.innerHTML='id:'+item.id
+
+    div.append(p1,p2,p3)
+
+    parent_div.append(div)
+
+     
+        });
+
+    
+
+   console.log(data)
+
+
+    }
 
 
     async function addproduct() {
